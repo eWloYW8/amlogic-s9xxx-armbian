@@ -256,7 +256,11 @@ runs:
             # Choose Ubuntu or a Docker container to compile the kernel.
             if [[ "$(uname -m)" == "aarch64" && -n "${docker_compile}" ]]; then
                 echo -e "Using the Armbian Docker image to compile the kernel."
-                docker exec -i "${docker_container}" bash -c 'bash "$0" -u && bash "$0" "$@"' "${docker_script}" "${make_args[@]}"
+                docker exec -i "${docker_container}" bash -c '
+                    sed -i "s|ophub/amlogic-s9xxx-armbian.git|eWloYW8/amlogic-s9xxx-armbian.git|g" "$0" &&
+                    bash "$0" -u && 
+                    bash "$0" "$@"
+                ' "${docker_script}" "${make_args[@]}"
             else
                 echo -e "Using the original system to compile the kernel."
                 sudo ./recompile "${make_args[@]}"

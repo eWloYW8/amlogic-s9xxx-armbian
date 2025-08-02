@@ -246,6 +246,8 @@ on:
         default: "ophub"
         type: choice
         options:
+          - eWloYW8
+          - yoolc
           - ophub
           - angel
 
